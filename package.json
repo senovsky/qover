@@ -1,0 +1,25 @@
+{
+  "name": "qover",
+  "version": "1.0.0",
+  "description": "qover business case",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senovsky/qover.git"
+  },
+  "author": "Nikola Šenovský",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/senovsky/qover/issues"
+  },
+  "homepage": "https://github.com/senovsky/qover#readme",
+  "dependencies": {
+    "cypress": "^9.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.2"
+  }
+}
