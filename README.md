@@ -10,10 +10,11 @@ This repository contains an example test case implemented in Cypress, for the wh
 
 ## Running the tests
 
+- Open terminal in the root of the repository folder
 - Run `npm test` to open the Cypress test runner, then click on any `*.spec.ts` file
 - Run `npm run cy:run:chrome` or `npm run cy:run:firefox` to run all tests in a headless mode of a given browser
 
 ## Test results
 
 - When using the test runner, test results are displayed in a browser window
-- When using the headless mode, test results are displayed in the terminal. In case of one or more test failures, you can also see [Screenshots](cypress/screenshots) and [Videos](cypress/videos)
+- When using the headless mode, test results are displayed in the terminal. In case of one or more test failures, you can also see [Screenshots](cypress/screenshots) and [Videos](cypress/videos) in their respective folders that will be created during the test run
