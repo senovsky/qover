@@ -12,46 +12,42 @@ const invalidLowerBound = 249.99
 const invalidHigherBound = 10000.01
 const invalidCharacters = '-a☺ .€'
 
+const errorMessageMinValue = 'Min. €250'
+const errorMessageMaxValue = 'Max. €10.000'
+const errorMessageEmptyValue = 'Required'
+
+function bikeValueInputValidation(bikeValue: string, quoteButtonsState: string) {
+  cy.get('[data-test="bike.quote.originalValue"]').type(bikeValue)
+  cy.get('[data-test="bike.quote.priceInfoButton"]').click()
+  cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should(quoteButtonsState)
+  cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should(quoteButtonsState)
+} 
 
 describe('bike value input validation - happy paths', () => {
   it('accepts valid bike value at lower bound', () => {
-    cy.get('[data-test="bike.quote.originalValue"]').type(String(validLowerBound))
-    cy.get('[data-test="bike.quote.priceInfoButton"]').click()
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should('be.enabled')
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should('be.enabled')
+    bikeValueInputValidation(String(validLowerBound), 'be.enabled')
   })
 
   it('accepts valid bike value at higher bound', () => {
-    cy.get('[data-test="bike.quote.originalValue"]').type(String(validHigherBound))
-    cy.get('[data-test="bike.quote.priceInfoButton"]').click()
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should('be.enabled')
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should('be.enabled')
+    bikeValueInputValidation(String(validHigherBound), 'be.enabled')
   })
 })
 
 describe('bike value input validation - unhappy paths', () => {
   it('does not accept invalid bike value at lower bound', () => {
-    cy.get('[data-test="bike.quote.originalValue"]').type(String(invalidLowerBound))
-    cy.get('[data-test="bike.quote.priceInfoButton"]').click()
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="error.minValue"]').should('contain.text', 'Min. €250')
+    bikeValueInputValidation(String(invalidLowerBound), 'not.exist')
+    cy.get('[data-test="error.minValue"]').should('contain.text', errorMessageMinValue)
   })
 
   it('does not accept invalid bike value at higher bound', () => {
-    cy.get('[data-test="bike.quote.originalValue"]').type(String(invalidHigherBound))
-    cy.get('[data-test="bike.quote.priceInfoButton"]').click()
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="error.maxValue"]').should('contain.text', 'Max. €10.000')
+    bikeValueInputValidation(String(invalidHigherBound), 'not.exist')
+    cy.get('[data-test="error.maxValue"]').should('contain.text', errorMessageMaxValue)
   })
 
   it('does not accept invalid characters as bike value', () => {
-    cy.get('[data-test="bike.quote.originalValue"]').type(invalidCharacters)
-    cy.get('[data-test="bike.quote.priceInfoButton"]').click()
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="bike.quote.card.VARIANT_THEFT_DAMAGE_ASSISTANCE"]').should('not.exist')
-    cy.get('[data-test="error.required"]').should('contain.text', 'Required')
+    bikeValueInputValidation(invalidCharacters, 'not.exist')
+    cy.get('[data-test="error.required"]').should('contain.text', errorMessageEmptyValue)
+    cy.get('[data-test="bike.quote.originalValue"]').should('be.empty')
   })
 })
 
