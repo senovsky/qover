@@ -4,7 +4,9 @@
   "description": "qover business case",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open"
+    "test": "npx cypress open",
+    "cy:run:chrome": "npx cypress run --browser chrome",
+    "cy:run:firefox": "npx cypress run --browser firefox"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,4 @@
 {
-    "baseUrl": "https://appqoverme-ui.sbx.qover.io"
+    "baseUrl": "https://appqoverme-ui.sbx.qover.io",
+    "chromeWebSecurity": false
 }
